@@ -1,0 +1,27 @@
+{
+  "name": "001-enjoy-you-music",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/index.html --port 3000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "modules": "^0.4.0",
+    "normalize.css": "^8.0.1",
+    "parcel": "^1.12.4",
+    "postcss-font-magician": "^2.3.1",
+    "postcss-modules": "^3.2.2",
+    "postcss-preset-env": "^6.7.0"
+  },
+  "browserslist": [
+    ">0.3%",
+    "not ie 11",
+    "not dead",
+    "not op_mini all"
+  ]
+}

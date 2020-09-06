@@ -1,0 +1,89 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enjoy you music</title>
+  <link rel="stylesheet" href="./styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
+  <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
+  <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function(event) {
+      // Splitting
+      Splitting()
+
+      // Gsap for first page
+      gsap.timeline()
+        .addLabel('start')
+        .from('.left .bg', { yPercent: 100, duration: 1 })
+        .addLabel('text')
+        .from('.text .text-left h1 span', { y: '100%', stagger: 0.014, duration: 0.5 }, 'text')
+        .from('.text .text-left p', { y: '100%', duration: 0.5 }, 'text+=0.2')
+        .from('.left + img', { x: -300, y: -200, rotation: 20, scale: 0.2, opacity: 0, duration: 1 }, 'text')
+        .from('.left .circle', { opacity: 0, scale: 0.1, duration: 1 }, 'text')
+        // header
+        .from('.header', { opacity: 0, duration: 0.5 }, 'text')
+        .from('.header hr', { width: 0, duration: 1.5 }, 'text')
+        // Center
+        .from('.text .text-center h1 span', { y: '100%', stagger: 0.014, duration: 0.5 }, 'text+=0.4')
+
+      // Gsap for second page
+      const secondPage = document.querySelector('.right');
+      const timeline = gsap.timeline()
+        .addLabel('start')
+        .to('.header hr', { width: '125vw', duration: 1.5 }, 'start')
+        .to('.left .circle', { x: '50%', duration: 0.5 }, 'start')
+        .from('.text .text-right h1 span', { y: '100%', stagger: 0.014, duration: 0.5 }, 'start')
+        .from('.right img', { scale: 0.2, opacity: 0, duration: 1 }, 'start')
+  
+      const observer = new IntersectionObserver((entries) => {
+        entries.map((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+          timeline.restart();
+          observer.unobserve(secondPage);
+        })
+      }, {
+        threshold: 0.1
+      });
+
+      observer.observe(secondPage);
+    })
+  </script>
+</head>
+<body>
+  <main>
+    <div>
+      <div class="left">
+        <div class="bg"></div>
+        <div class="circle"></div>
+      </div>
+
+      <img src="./assets/cassette.png" alt="Cassette">
+
+      <div class="right">
+        <div class="bg"></div>
+        <img src="./assets/coffee.png" alt="Coffee">
+      </div>
+  
+      <div class="header" data-splitting>26 08 2020 <hr/></div>
+
+      <!-- Overlay the whole page -->
+      <div class="text">
+        <div class="text-left" style="overflow:hidden">
+          <h1 style="overflow: hidden;" data-splitting>Enjoy <br> your music</h1>
+          <p>Telecommuting, also called telework, teleworking, working from home—the most common term in the UK. Mobile work, remote work, and flexible workplace, is a work arrangement</p>
+        </div>
+        <div class="text-center" style="overflow:hidden">
+          <h1 data-splitting="">while</h1>
+        </div>
+        <div class="text-right">
+          <h1 style="overflow: hidden;" data-splitting>working <br> from home</h1>
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
